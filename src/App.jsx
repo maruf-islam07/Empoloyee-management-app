@@ -1,6 +1,6 @@
-import Employe from "./components/Employe";
+import Employe from "./components/Employee/Employe";
 import Footer from "./components/footer/Footer";
-import Navbar from "./components/navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
   return (
