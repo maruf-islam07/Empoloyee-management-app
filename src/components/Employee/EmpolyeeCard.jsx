@@ -2,8 +2,14 @@ import React from "react";
 import { CiEdit } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { openDeletePopup } from "../../store/Features/popup/popupSlice";
 
 const EmpolyeeCard = () => {
+
+  const dispatch = useDispatch()
+
+
   return (
     <li className="list-row">
       <div>
@@ -26,7 +32,10 @@ const EmpolyeeCard = () => {
       <button className="btn btn-square btn-ghost">
         <CiEdit className="text-xl" />
       </button>
-      <button className="btn btn-square btn-ghost">
+      <button
+       onClick={()=>dispatch(openDeletePopup())}
+       className="btn btn-square btn-ghost"
+       >
         <MdDelete className="text-xl" />
       </button>
       <button className="btn btn-square btn-ghost">

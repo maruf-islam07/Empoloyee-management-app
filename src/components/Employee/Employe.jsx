@@ -8,16 +8,6 @@ function Employe() {
       <Layout>
         <ul className="list bg-base-100 rounded-box shadow-md">
           <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-          <EmpolyeeCard/>
-         
         </ul>
       </Layout>
     </div>
