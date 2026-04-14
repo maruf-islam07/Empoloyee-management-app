@@ -3,7 +3,7 @@ import api from "../../../config/axiosInstance";
 
 export const getEmployees = createAsyncThunk(
   "empolyee/getEmployees",
- 
+
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await api.get("/employees");
@@ -17,13 +17,27 @@ export const getEmployees = createAsyncThunk(
 export const postEmployees = createAsyncThunk(
   "employee/postEmployee",
 
-  async (details, { rejectWithValue , dispatch }) => {
+  async (details, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await api.post("/employees", details);
-      dispatch(getEmployees())
+      dispatch(getEmployees());
       return data;
     } catch (error) {
-      return rejectWithValue('Something went wrong')
+      return rejectWithValue("Something went wrong");
+    }
+  },
+);
+
+export const deleteEmployees = createAsyncThunk(
+  "employee/deleteEmployee",
+
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await api.delete(`employees/${id}`);
+      dispatch(getEmployees());
+      return data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
     }
   },
 );

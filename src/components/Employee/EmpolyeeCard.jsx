@@ -29,13 +29,13 @@ const EmpolyeeCard = ({details}) => {
         {details.bio}
       </p>
       <button
-        onClick={() => dispatch(openEmployeePopup())}
+        onClick={() => dispatch(openEmployeePopup(details.id))}
         className="btn btn-square btn-ghost"
       >
         <CiEdit className="text-xl" />
       </button>
       <button
-        onClick={() => dispatch(openDeletePopup())}
+        onClick={() => dispatch(openDeletePopup(details.id))}
         className="btn btn-square btn-ghost"
       >
         <MdDelete className="text-xl" />

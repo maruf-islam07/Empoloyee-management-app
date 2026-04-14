@@ -1,10 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeDeletePopup } from "../../store/Features/popup/popupSlice";
+import { deleteEmployees } from "../../store/Features/empolyee/employee.thunk";
 
 const DeletePopup = () => {
   const popup = useSelector((state) => state.popup.deletePopup);
+  console.log(popup);
   const dispatch = useDispatch();
+
+  const confirmDelete = async () => {
+    await dispatch(deleteEmployees(popup));
+    dispatch(closeDeletePopup());
+  };
 
   if (!popup) return null;
 
@@ -21,7 +28,9 @@ const DeletePopup = () => {
           <h2 className="card-title">Delete</h2>
           <p>Are you sure , you want to delete this?</p>
           <div className="justify-end card-actions mt-5">
-            <button className="btn btn-error ">Yes</button>
+            <button onClick={confirmDelete} className="btn btn-error ">
+              Yes
+            </button>
             <button
               onClick={() => dispatch(closeDeletePopup())}
               className="btn btn-primary"
