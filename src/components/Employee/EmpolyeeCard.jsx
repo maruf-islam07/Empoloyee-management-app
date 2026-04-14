@@ -29,7 +29,7 @@ const EmpolyeeCard = ({details}) => {
         {details.bio}
       </p>
       <button
-        onClick={() => dispatch(openEmployeePopup(details.id))}
+        onClick={() => dispatch(openEmployeePopup(details))}
         className="btn btn-square btn-ghost"
       >
         <CiEdit className="text-xl" />

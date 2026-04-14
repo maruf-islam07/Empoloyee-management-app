@@ -14,6 +14,7 @@ export const getEmployees = createAsyncThunk(
   },
 );
 
+
 export const postEmployees = createAsyncThunk(
   "employee/postEmployee",
 
@@ -28,12 +29,28 @@ export const postEmployees = createAsyncThunk(
   },
 );
 
+
 export const deleteEmployees = createAsyncThunk(
   "employee/deleteEmployee",
 
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await api.delete(`employees/${id}`);
+      dispatch(getEmployees());
+      return data;
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
+    }
+  },
+);
+
+
+export const editEmployees = createAsyncThunk(
+  "employee/deleteEmployee",
+
+  async ({id, details}, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await api.put(`employees/${id}`, details);
       dispatch(getEmployees());
       return data;
     } catch (error) {

@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeEmployeePopup } from "../../store/Features/popup/popupSlice";
-import { postEmployees } from "../../store/Features/empolyee/employee.thunk";
+import {
+  editEmployees,
+  postEmployees,
+} from "../../store/Features/empolyee/employee.thunk";
 
 const Popup = () => {
   const [formDetails, setFormDetails] = useState({
@@ -11,6 +14,28 @@ const Popup = () => {
     bio: "",
     highlight: false,
   });
+  const popup = useSelector((state) => state.popup.employeePopup);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!popup) {
+      setFormDetails({
+        profileUrl: "",
+        name: "",
+        email: "",
+        bio: "",
+        highlight: false,
+      });
+    } else if (popup.id) {
+      setFormDetails({
+        profileUrl: popup.profileUrl,
+        name: popup.name,
+        email: popup.email,
+        bio: popup.bio,
+        highlight: false,
+      });
+    }
+  }, [popup]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -21,12 +46,18 @@ const Popup = () => {
   };
 
   const handleSubmit = async () => {
-    await dispatch(postEmployees(formDetails));
+    if (popup.id) {
+      await dispatch(
+        editEmployees({
+          id: popup.id,
+          details: formDetails,
+        }),
+      );
+    } else {
+      await dispatch(postEmployees(formDetails));
+    }
     dispatch(closeEmployeePopup());
   };
-
-  const popup = useSelector((state) => state.popup.employeePopup);
-  const dispatch = useDispatch();
 
   if (!popup) return null;
 
@@ -47,6 +78,7 @@ const Popup = () => {
           type="text"
           className="input"
           placeholder="Profile Url"
+          value={formDetails.profileUrl}
           onChange={handleInputChange}
         />
 
@@ -56,6 +88,7 @@ const Popup = () => {
           type="email"
           className="input"
           placeholder="Name"
+          value={formDetails.name}
           onChange={handleInputChange}
         />
 
@@ -65,6 +98,7 @@ const Popup = () => {
           type="email"
           className="input"
           placeholder="Email"
+          value={formDetails.email}
           onChange={handleInputChange}
         />
 
@@ -73,6 +107,7 @@ const Popup = () => {
           name="bio"
           className="textarea h-24"
           placeholder="Bio"
+          value={formDetails.bio}
           onChange={handleInputChange}
         ></textarea>
 
